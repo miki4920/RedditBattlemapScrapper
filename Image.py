@@ -16,7 +16,7 @@ class Image(object):
             self.image = request_file(self.submission.url)
 
     def check_image(self):
-        if not self.submission.url[-4:] in map_format:
+        if not find_file_extension(self.submission.url):
             return False
         elif not re.search("(\d+x(\d+)+)", self.submission.title):
             return False
