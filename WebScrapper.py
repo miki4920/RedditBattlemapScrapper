@@ -1,14 +1,13 @@
 import os
 import praw
-import requests
-import time
+from Image import Image
 from ClientSecrets import token
+from UtilityFunctions import read_json
 
 token()
-
-root = "Maps/"
-subreddit = "battlemaps"
-map_format = [".png", ".jpg"]
+url_base = "http://api.pushshift.io/reddit/search/submission/"
+subreddit = "FantasyMaps"
+score = 100
 
 
 class WebScrapper(object):
@@ -18,35 +17,19 @@ class WebScrapper(object):
                                   user_agent="WebScrapper",
                                   username="PythonScrapper",
                                   password=os.environ["REDDIT_PASSWORD"] )
-        self.subreddit = self.reddit.subreddit(subreddit)
-        for submission in self.subreddit.top(limit=1000):
-            image_url = submission.url
-            if self.check_image(image_url):
-                image_name = self.handle_name(submission)
-                image = self.request_image(image_url)
-                self.save_image(image, image_name)
-            time.sleep(1)
-
-    @staticmethod
-    def request_image(image_url):
-        image = requests.get(image_url).content
-        return image
-
-    @staticmethod
-    def check_image(image_url):
-        return image_url[-4:] in map_format
-
-    @staticmethod
-    def handle_name(submission):
-        image_name = submission.title.replace(" ", "_") + submission.url[-4:]
-        return image_name
-
-    @staticmethod
-    def save_image(image, image_name):
-        path = root+image_name
-        with open(path, "wb") as file:
-            file.write(image)
-
+        self.reddit.read_only = True
+        starting_timestamp = 0
+        self.json_api = {"data": ["None"]}
+        while True:
+            url = url_base + f"?subreddit={subreddit}&score=>{score}&after={starting_timestamp}&sort=asc&size=500"
+            self.json_api = read_json(url)["data"]
+            for submission in self.json_api:
+                submission = self.reddit.submission(url=submission["full_link"])
+                image = Image(submission)
+                image.save()
+            if len(self.json_api) <= 0:
+                break
+            starting_timestamp = int(self.json_api[-1]["created_utc"])
 
 
 scrapper = WebScrapper()
