@@ -3,11 +3,13 @@ import praw
 from Image import Image
 from ClientSecrets import token
 from UtilityFunctions import read_json
+from MapTagger import MapTagger
 
 token()
 url_base = "http://api.pushshift.io/reddit/search/submission/"
-subreddit = "FantasyMaps"
-score = 100
+subreddit = "battlemaps"
+score = 10
+starting_timestamp = 0
 
 
 class WebScrapper(object):
@@ -18,18 +20,20 @@ class WebScrapper(object):
                                   username="PythonScrapper",
                                   password=os.environ["REDDIT_PASSWORD"] )
         self.reddit.read_only = True
-        starting_timestamp = 0
-        self.json_api = {"data": ["None"]}
+        self.start_scrapping(starting_timestamp)
+
+    def start_scrapping(self, timestamp):
         while True:
-            url = url_base + f"?subreddit={subreddit}&score=>{score}&after={starting_timestamp}&sort=asc&size=500"
-            self.json_api = read_json(url)["data"]
-            for submission in self.json_api:
+            url = url_base + f"?subreddit={subreddit}&score=>{score}&after={timestamp}&sort=asc&size=500"
+            json_api = read_json(url)["data"]
+            for submission in json_api:
                 submission = self.reddit.submission(url=submission["full_link"])
                 image = Image(submission)
                 image.save()
-            if len(self.json_api) <= 0:
-                break
-            starting_timestamp = int(self.json_api[-1]["created_utc"])
+            timestamp = int(json_api[-1]["created_utc"])
+            if len(json_api) < 1:
+                return
 
 
-scrapper = WebScrapper()
+# scrapper = WebScrapper()
+tokeniser = MapTagger("Maps/")
