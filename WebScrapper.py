@@ -3,38 +3,42 @@ import praw
 from ClientSecrets import token
 from UtilityFunctions import *
 from MapTagger import MapTagger
-import requests
-from requests_toolbelt.multipart.encoder import MultipartEncoder
+from MapUploader import MapUploader
+
 
 token()
-url_base = "http://api.pushshift.io/reddit/search/submission/"
+api_url = "http://api.pushshift.io/reddit/search/submission/"
 subreddit = "battlemaps"
 score = 10
 starting_timestamp = 0
 root = "Maps/"
 minimum_maps_per_tag = 5
+upload_url = 'http://192.168.0.40/uploadImage'
 
 
 class WebScrapper(object):
-    def __init__(self):
+    def __init__(self, url):
         self.reddit = praw.Reddit(client_id=os.environ["CLIENT_ID"],
                                   client_secret=os.environ["SECRET_KEY"],
                                   user_agent="WebScrapper",
                                   username="PythonScrapper",
                                   password=os.environ["REDDIT_PASSWORD"] )
         self.reddit.read_only = True
+        self.api_url = url
         self.start_scrapping(starting_timestamp)
 
     def start_scrapping(self, timestamp):
         while True:
-            url = url_base + f"?subreddit={subreddit}&score=>{score}&after={timestamp}&sort=asc&size=500"
+            url = self.api_url + f"?subreddit={subreddit}&score=>{score}&after={timestamp}&sort=asc&size=500"
             json_api = read_json(url)["data"]
             for submission in json_api:
                 submission = self.reddit.submission(url=submission["full_link"])
                 self.save_submission(submission)
-            timestamp = int(json_api[-1]["created_utc"])
             if len(json_api) < 1:
                 return
+            timestamp = int(json_api[-1]["created_utc"])
+            print(timestamp)
+
 
     @staticmethod
     def save_submission(submission):
@@ -46,17 +50,9 @@ class WebScrapper(object):
             save_file(image_name, image)
 
 
-# scrapper = WebScrapper()
-simplify_all_names(root)
+# scrapper = WebScrapper(api_url)
+# simplify_all_names(root)
 map_tagger = MapTagger(root, minimum_maps_per_tag)
 metadata_dictionary = map_tagger.get_metadata_dictionary(root)
-
-for map in list(metadata_dictionary.values()):
-    multipart_data = MultipartEncoder(
-        fields=map
-    )
-    print(map[0][1][0])
-    response = requests.post('http://192.168.0.40/imageUpload', data=multipart_data,
-                      headers={'Content-Type': multipart_data.content_type})
-
-    print(str(response) + " " + str(response.content))
+uploader = MapUploader(upload_url, root)
+uploader.upload_dictionary(metadata_dictionary)

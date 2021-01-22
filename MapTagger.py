@@ -8,7 +8,6 @@ class MapTagger(object):
         self.word_dictionary = dict(sorted(self.word_dictionary.items(), key=lambda item: item[1])[::-1])
         self.word_dictionary = {k: v for k, v in self.word_dictionary.items() if v >= minimum_maps_per_tag}
 
-
     @staticmethod
     def add_to_word_dictionary(path):
         _, _, file_names = next(walk(path))
@@ -29,7 +28,6 @@ class MapTagger(object):
         tags = [('tags', tag) for tag in tags]
         return tags
 
-
     def get_metadata_dictionary(self, path):
         _, _, file_names = next(walk(path))
         map_dictionary = {}
@@ -44,5 +42,5 @@ class MapTagger(object):
             file_name = "_".join(file_name) + "." + extension
             map_dictionary[file_names[i]] = [("image", (file_name, read_file(file_names[i]), f"image/{extension}")),
                                              ('name', 'nick'), ('squareWidth', size[0]),
-                                             ('squareHeight', size[1])] + tags
+                                             ('squareHeight', size[1]), ('tags', 'battlemap')] + tags
         return map_dictionary
