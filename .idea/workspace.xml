@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c38b177e-a97b-4b8c-9b98-fee2489c06ba" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/DictionaryMaker.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HashFunctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MapTagger.py" beforeDir="false" afterPath="$PROJECT_DIR$/MapTagger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UtilityFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/UtilityFunctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebScrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebScrapper.py" afterDir="false" />
     </list>
@@ -171,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611341085015</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Simplified code, removed a dependency on reddit api, moved to a dictionary based system for storing files&#10;TODO: Add a file storage, support for imgur and proper upload handling">
+      <created>1611522340855</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1611522340855</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -180,7 +190,8 @@
     <MESSAGE value="Cleaned up name scrapping&#10;TODO: Add a way to change all file names. Add a working tagging library and include metadata in the name. Add an uploading system." />
     <MESSAGE value="Added a working tag system and started uploading&#10;TODO: create a working uploading function" />
     <MESSAGE value="Created Uploader, added a file checker&#10;TODO: Sort out the error codes and add exception handling. Create a new name handling to prevent duplicates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created Uploader, added a file checker&#10;TODO: Sort out the error codes and add exception handling. Create a new name handling to prevent duplicates" />
+    <MESSAGE value="Simplified code, removed a dependency on reddit api, moved to a dictionary based system for storing files&#10;TODO: Add a file storage, support for imgur and proper upload handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplified code, removed a dependency on reddit api, moved to a dictionary based system for storing files&#10;TODO: Add a file storage, support for imgur and proper upload handling" />
   </component>
   <component name="WindowStateProjectService">
     <state x="505" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611504782418">
@@ -191,45 +202,45 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1611509420144" />
-    <state x="287" y="0" key="CommitChangelistDialog2" timestamp="1611341084268">
+    <state x="287" y="0" key="CommitChangelistDialog2" timestamp="1611789765326">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="287" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1611341084268" />
-    <state width="1515" height="113" key="GridCell.Tab.0.bottom" timestamp="1611520881762">
+    <state x="287" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1611789765326" />
+    <state width="1515" height="113" key="GridCell.Tab.0.bottom" timestamp="1611773459161">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611520881762" />
-    <state width="1515" height="113" key="GridCell.Tab.0.center" timestamp="1611520881761">
+    <state width="1515" height="113" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611773459161" />
+    <state width="1515" height="113" key="GridCell.Tab.0.center" timestamp="1611773459161">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1611520881761" />
-    <state width="1515" height="113" key="GridCell.Tab.0.left" timestamp="1611520881761">
+    <state width="1515" height="113" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1611773459161" />
+    <state width="1515" height="113" key="GridCell.Tab.0.left" timestamp="1611773459161">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1611520881761" />
-    <state width="1515" height="113" key="GridCell.Tab.0.right" timestamp="1611520881761">
+    <state width="1515" height="113" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1611773459161" />
+    <state width="1515" height="113" key="GridCell.Tab.0.right" timestamp="1611773459161">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1611520881761" />
-    <state width="1515" height="261" key="GridCell.Tab.1.bottom" timestamp="1611515641467">
+    <state width="1515" height="113" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1611773459161" />
+    <state width="1515" height="185" key="GridCell.Tab.1.bottom" timestamp="1611707019710">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611515641467" />
-    <state width="1515" height="261" key="GridCell.Tab.1.center" timestamp="1611515641467">
+    <state width="1515" height="185" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611707019710" />
+    <state width="1515" height="185" key="GridCell.Tab.1.center" timestamp="1611707019710">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1611515641467" />
-    <state width="1515" height="261" key="GridCell.Tab.1.left" timestamp="1611515641467">
+    <state width="1515" height="185" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1611707019710" />
+    <state width="1515" height="185" key="GridCell.Tab.1.left" timestamp="1611707019710">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1611515641467" />
-    <state width="1515" height="261" key="GridCell.Tab.1.right" timestamp="1611515641467">
+    <state width="1515" height="185" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1611707019710" />
+    <state width="1515" height="185" key="GridCell.Tab.1.right" timestamp="1611707019710">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1611515641467" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1611504098433">
+    <state width="1515" height="185" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1611707019710" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1611768876424">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1611504098433" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1611768876424" />
   </component>
 </project>
