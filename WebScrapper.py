@@ -12,6 +12,7 @@ minimum_submission_score = 10
 gridded_only = True
 
 download_path = "Maps/"
+temporary_path = "Temp/"
 dictionary_path = "maps_dictionary.json"
 
 image_similarity = 0
@@ -32,7 +33,7 @@ stop_words = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you'
               'storey', 'three', 'maps', 'feedback', 'handdrawn', 'part', 'px', 'xpx', 'art', 'info', 'one', 'two',
               'three', 'roll', 'virtual', 'version', 'multi', 'original', 'mine', 'four', 'five', 'ppi', 'square',
               'small', 'multi', 'jpg', 'png', 'inktober', 'scale', 'first', 'units', 'grand', 'assets', 'mapvember',
-              'floor', 'great', 'rpg', 'battlemaps', 'amp', 'encounter', 'amp']
+              'floor', 'great', 'rpg', 'battlemaps', 'amp', 'encounter', 'tree', 'guard']
 
 config = {"base_url": base_url,
           "subreddit": subreddit,
@@ -40,6 +41,7 @@ config = {"base_url": base_url,
           "minimum_submission_score": minimum_submission_score,
           "gridded_only": gridded_only,
           "download_path": download_path,
+          "temporary_path": temporary_path,
           "dictionary_path": dictionary_path,
           "image_similarity": image_similarity,
           "base_tags": base_tags,
@@ -83,7 +85,7 @@ class WebScrapper(object):
                     submission_dictionary = self.dictionary_maker.create_submission_dictionary(submission)
                     file = request_file(submission_dictionary["url"])
                     submission_dictionary["hash"] = hash_image(file)
-                    if self.check_hash(submission_dictionary["hash"]):
+                    if self.check_hash(submission_dictionary["hash"]) and check_file_size(file):
                         save_file(submission_dictionary["path"], file)
                         self.submission_list.append(submission_dictionary)
             write_json(self.config['dictionary_path'], self.submission_list)
@@ -93,7 +95,8 @@ class WebScrapper(object):
 
 
 dictionary_maker = DictionaryMaker(config)
-scrapper = WebScrapper(dictionary_maker, config)
-scrapper.start_scrapping()
+# scrapper = WebScrapper(dictionary_maker, config)
+# scrapper.start_scrapping()
+dictionary_maker.update_stop_words()
 map_tagger = MapTagger(config)
 map_tagger.assign_tags()

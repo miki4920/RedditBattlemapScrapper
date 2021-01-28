@@ -1,5 +1,6 @@
 import os
 import re
+from UtilityFunctions import read_json, write_json
 
 
 class DictionaryMaker(object):
@@ -27,6 +28,18 @@ class DictionaryMaker(object):
         name = re.sub("(_)+", "_", name)
         name = re.sub("_$|^_", "", name)
         return name
+
+    def update_stop_words(self):
+        dictionary = read_json(self.config["dictionary_path"])
+        for metadata in dictionary:
+            name = self.simplify_name(metadata["name"])
+            temporary_path = self.config["temporary_path"] + metadata["path"].replace(self.config["download_path"], "")
+            os.rename(metadata["path"], temporary_path)
+            name, path = self.get_path(name, metadata["extension"])
+            os.rename(temporary_path, path)
+            metadata["name"] = name
+            metadata["path"] = path
+        write_json(self.config["dictionary_path"], dictionary)
 
     @staticmethod
     def get_url(submission):

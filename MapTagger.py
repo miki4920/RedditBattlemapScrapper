@@ -28,7 +28,7 @@ class MapTagger(object):
         self.get_name_tags()
         for submission in self.dictionary:
             submission_tags = []
-            for tag in submission["name".split("_")]:
+            for tag in submission["name"].split("_"):
                 if tag in self.tags and tag not in submission_tags:
                     submission_tags.append(tag)
             submission["tags"] = submission_tags

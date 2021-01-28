@@ -21,9 +21,8 @@ def read_file(path):
 
 
 def save_file(path, content):
-    if check_file_size(content):
-        with open(path, "wb") as file:
-            file.write(content)
+    with open(path, "wb") as file:
+        file.write(content)
 
 
 def read_json(json_object):
