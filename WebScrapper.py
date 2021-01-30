@@ -1,15 +1,17 @@
+import os
+import re
 from UtilityFunctions import *
 from HashFunctions import hash_image, hash_distance
 from MapTagger import MapTagger
 from DictionaryMaker import DictionaryMaker
-import os
-import re
+from MapUploader import MapUploader
+
 
 base_url = "http://api.pushshift.io/reddit/search/submission/"
 subreddit = "battlemaps"
 starting_timestamp = 0
-minimum_submission_score = 10
-gridded_only = True
+minimum_submission_score = 100
+gridded_only = False
 
 download_path = "Maps/"
 temporary_path = "Temp/"
@@ -33,7 +35,10 @@ stop_words = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you'
               'storey', 'three', 'maps', 'feedback', 'handdrawn', 'part', 'px', 'xpx', 'art', 'info', 'one', 'two',
               'three', 'roll', 'virtual', 'version', 'multi', 'original', 'mine', 'four', 'five', 'ppi', 'square',
               'small', 'multi', 'jpg', 'png', 'inktober', 'scale', 'first', 'units', 'grand', 'assets', 'mapvember',
-              'floor', 'great', 'rpg', 'battlemaps', 'amp', 'encounter', 'tree', 'guard']
+              'floor', 'great', 'rpg', 'battlemaps', 'amp', 'encounter', 'tree', 'guard', 'never', 'multilayered',
+              'please', 'begging', 'eth', 'use', 'labels', 'classic', 'players', ]
+
+upload_ip = "http://192.168.0.40/uploadImage"
 
 config = {"base_url": base_url,
           "subreddit": subreddit,
@@ -46,7 +51,8 @@ config = {"base_url": base_url,
           "image_similarity": image_similarity,
           "base_tags": base_tags,
           "minimum_tag_repetitions": minimum_tag_repetitions,
-          "stop_words": stop_words}
+          "stop_words": stop_words,
+          "upload_ip": upload_ip}
 
 
 class WebScrapper(object):
@@ -95,8 +101,10 @@ class WebScrapper(object):
 
 
 dictionary_maker = DictionaryMaker(config)
-# scrapper = WebScrapper(dictionary_maker, config)
-# scrapper.start_scrapping()
+scrapper = WebScrapper(dictionary_maker, config)
+scrapper.start_scrapping()
 dictionary_maker.update_stop_words()
 map_tagger = MapTagger(config)
 map_tagger.assign_tags()
+map_uploader = MapUploader(config)
+map_uploader.upload_dictionary()

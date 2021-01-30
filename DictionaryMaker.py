@@ -1,5 +1,6 @@
 import os
 import re
+
 from UtilityFunctions import read_json, write_json
 
 
@@ -70,7 +71,7 @@ class DictionaryMaker(object):
         url = self.get_url(submission)
         extension = self.get_extension(url)
         name, path = self.get_path(name, extension)
-        width, height = None, None
+        width, height = "", ""
         if self.get_size(submission["title"]):
             width, height = list(map(int, self.get_size(submission["title"]).split("x")))
         submission_dictionary = {"name": name,

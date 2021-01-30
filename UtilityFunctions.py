@@ -5,7 +5,7 @@ import time
 
 
 minimum_image_size = 5000
-maximum_image_size = 204857600
+maximum_image_size = 20485760
 
 
 def request_file(url):

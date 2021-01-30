@@ -4,7 +4,7 @@
     <list default="true" id="c38b177e-a97b-4b8c-9b98-fee2489c06ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DictionaryMaker.py" beforeDir="false" afterPath="$PROJECT_DIR$/DictionaryMaker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapTagger.py" beforeDir="false" afterPath="$PROJECT_DIR$/MapTagger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MapUploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/MapUploader.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UtilityFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/UtilityFunctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebScrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebScrapper.py" afterDir="false" />
     </list>
@@ -32,6 +32,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.WebScrapper">
     <configuration name="DatabaseHandler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -187,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611789842902</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Created a MapTagger and a metadata changer.&#10;TODO: Create uploader">
+      <created>1611837012744</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1611837012744</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -198,7 +206,8 @@
     <MESSAGE value="Created Uploader, added a file checker&#10;TODO: Sort out the error codes and add exception handling. Create a new name handling to prevent duplicates" />
     <MESSAGE value="Simplified code, removed a dependency on reddit api, moved to a dictionary based system for storing files&#10;TODO: Add a file storage, support for imgur and proper upload handling" />
     <MESSAGE value="Added a dictionary based storage, separated code into classes&#10;TODO: Write a name changer, move name simplifier to UtilityFunctions.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a dictionary based storage, separated code into classes&#10;TODO: Write a name changer, move name simplifier to UtilityFunctions.py" />
+    <MESSAGE value="Created a MapTagger and a metadata changer.&#10;TODO: Create uploader" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created a MapTagger and a metadata changer.&#10;TODO: Create uploader" />
   </component>
   <component name="WindowStateProjectService">
     <state x="505" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611504782418">
@@ -209,26 +218,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1611509420144" />
-    <state x="287" y="0" key="CommitChangelistDialog2" timestamp="1611789842284">
+    <state x="287" y="0" key="CommitChangelistDialog2" timestamp="1611837012178">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="287" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1611789842284" />
-    <state width="1515" height="113" key="GridCell.Tab.0.bottom" timestamp="1611836919723">
+    <state x="287" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1611837012178" />
+    <state width="1515" height="113" key="GridCell.Tab.0.bottom" timestamp="1612046935185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611836919723" />
-    <state width="1515" height="113" key="GridCell.Tab.0.center" timestamp="1611836919722">
+    <state width="1515" height="113" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1612046935185" />
+    <state width="1515" height="113" key="GridCell.Tab.0.center" timestamp="1612046935184">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1611836919722" />
-    <state width="1515" height="113" key="GridCell.Tab.0.left" timestamp="1611836919722">
+    <state width="1515" height="113" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1612046935184" />
+    <state width="1515" height="113" key="GridCell.Tab.0.left" timestamp="1612046935184">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1611836919722" />
-    <state width="1515" height="113" key="GridCell.Tab.0.right" timestamp="1611836919723">
+    <state width="1515" height="113" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1612046935184" />
+    <state width="1515" height="113" key="GridCell.Tab.0.right" timestamp="1612046935184">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1611836919723" />
+    <state width="1515" height="113" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1612046935184" />
     <state width="1515" height="185" key="GridCell.Tab.1.bottom" timestamp="1611707019710">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -245,9 +254,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1515" height="185" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1611707019710" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1611830615684">
+    <state x="277" y="55" key="SettingsEditor" timestamp="1612035160999">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1611830615684" />
+    <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1612035160999" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1612050232441">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1612050232441" />
   </component>
 </project>
