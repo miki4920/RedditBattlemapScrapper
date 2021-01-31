@@ -1,4 +1,3 @@
-import os
 import re
 from UtilityFunctions import *
 from HashFunctions import hash_image, hash_distance
@@ -9,6 +8,7 @@ from MapUploader import MapUploader
 
 base_url = "http://api.pushshift.io/reddit/search/submission/"
 subreddit = "battlemaps"
+file_extensions = ["jpg", "png"]
 starting_timestamp = 0
 minimum_submission_score = 100
 gridded_only = False
@@ -21,27 +21,12 @@ image_similarity = 0
 
 minimum_tag_repetitions = 5
 base_tags = []
-stop_words = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours', 'yourself',
-              'yourselves', 'he', 'him', 'his', 'himself', 'she', 'her', 'hers', 'herself', 'it', 'its', 'itself',
-              'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', 'these',
-              'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do',
-              'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while',
-              'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before',
-              'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again',
-              'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each',
-              'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than',
-              'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', 'now', 'map', 'battlemap', 'battle',
-              'oc', 'free', 'ocart', 'comments', 'gridless', 'grid', 'made', 'battlemapoc', 'inspired', 'level',
-              'storey', 'three', 'maps', 'feedback', 'handdrawn', 'part', 'px', 'xpx', 'art', 'info', 'one', 'two',
-              'three', 'roll', 'virtual', 'version', 'multi', 'original', 'mine', 'four', 'five', 'ppi', 'square',
-              'small', 'multi', 'jpg', 'png', 'inktober', 'scale', 'first', 'units', 'grand', 'assets', 'mapvember',
-              'floor', 'great', 'rpg', 'battlemaps', 'amp', 'encounter', 'tree', 'guard', 'never', 'multilayered',
-              'please', 'begging', 'eth', 'use', 'labels', 'classic', 'players', ]
-
+stop_words = open("stop_words_english.txt", "r").read().split("\n")
 upload_ip = "http://192.168.0.40/uploadImage"
 
 config = {"base_url": base_url,
           "subreddit": subreddit,
+          "file_extensions": file_extensions,
           "starting_timestamp": starting_timestamp,
           "minimum_submission_score": minimum_submission_score,
           "gridded_only": gridded_only,
@@ -67,6 +52,8 @@ class WebScrapper(object):
         return size.group(0) if size else False
 
     def check_submission(self, submission):
+        if submission["url"][-3:] not in self.config["file_extensions"]:
+            return False
         if not re.search("i\..*\.it", submission["url"]):
             return False
         if self.config['gridded_only'] and not self.get_size(submission["title"]):
@@ -84,7 +71,8 @@ class WebScrapper(object):
         if os.path.exists(self.config["dictionary_path"]):
             self.submission_list = read_json(self.config["dictionary_path"])
         while True:
-            url = self.config["base_url"] + f"?subreddit={self.config['subreddit']}&score=>{self.config['minimum_submission_score']}&after={timestamp}&sort=asc&size=500"
+            url = self.config[
+                      "base_url"] + f"?subreddit={self.config['subreddit']}&score=>{self.config['minimum_submission_score']}&after={timestamp}&sort=asc&size=100"
             json_api = list(read_json(request_file(url)).values())[0]
             for submission in json_api:
                 if self.check_submission(submission):
@@ -101,8 +89,8 @@ class WebScrapper(object):
 
 
 dictionary_maker = DictionaryMaker(config)
-scrapper = WebScrapper(dictionary_maker, config)
-scrapper.start_scrapping()
+# scrapper = WebScrapper(dictionary_maker, config)
+# scrapper.start_scrapping()
 dictionary_maker.update_stop_words()
 map_tagger = MapTagger(config)
 map_tagger.assign_tags()

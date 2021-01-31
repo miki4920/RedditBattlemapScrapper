@@ -42,9 +42,3 @@ def change_file_name(path, new_name):
 
 def check_file_size(file):
     return minimum_image_size < len(file) < maximum_image_size
-
-
-
-
-
-
