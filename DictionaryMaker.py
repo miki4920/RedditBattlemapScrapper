@@ -28,6 +28,10 @@ class DictionaryMaker(object):
         name = self.filter_words(name)
         name = re.sub("(_)+", "_", name)
         name = re.sub("_$|^_", "", name)
+        while len(name) > 40:
+            name = "_".join(name.split("_")[:-1])
+        if len(name) < 4:
+            name = "review"
         return name
 
     def update_stop_words(self):

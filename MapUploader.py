@@ -36,7 +36,6 @@ class MapUploader(object):
                 fields=metadata
             )
             response = self.upload_file(file)
-            print(response, response.content)
             if response.status_code == 200:
                 os.remove(submission["path"])
                 submissions.remove(submission)
@@ -45,6 +44,10 @@ class MapUploader(object):
                 if internal_code == "00":
                     os.remove(submission["path"])
                     submissions.remove(submission)
+                elif internal_code == "01":
+                    print(f"Bad Name: {submission['name']}")
+            else:
+                print(response, response.content)
         write_json(self.config["dictionary_path"], submissions)
 
 
