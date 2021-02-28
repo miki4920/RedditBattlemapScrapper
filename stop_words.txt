@@ -860,7 +860,6 @@ grid
 assets
 level
 version
-isometric
 hand
 floor
 room
@@ -883,7 +882,6 @@ grand
 sin
 divinity
 rest
-asset
 square
 tiles
 collaboration
@@ -893,7 +891,6 @@ lost
 fall
 big
 hidden
-tokens
 printable
 link
 making
