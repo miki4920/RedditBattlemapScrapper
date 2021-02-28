@@ -47,11 +47,6 @@ class DictionaryMaker(object):
         write_json(self.config["dictionary_path"], dictionary)
 
     @staticmethod
-    def get_url(submission):
-        url = submission["url"]
-        return url
-
-    @staticmethod
     def get_extension(url):
         return url[-3:]
 
@@ -72,10 +67,10 @@ class DictionaryMaker(object):
 
     def create_submission_dictionary(self, submission):
         name = self.simplify_name(submission["title"])
-        url = self.get_url(submission)
-        extension = self.get_extension(url)
+        url = submission["url"]
+        extension = url[-3:]
         name, path = self.get_path(name, extension)
-        width, height = "", ""
+        width, height = None, None
         if self.get_size(submission["title"]):
             width, height = list(map(int, self.get_size(submission["title"]).split("x")))
         submission_dictionary = {"name": name,

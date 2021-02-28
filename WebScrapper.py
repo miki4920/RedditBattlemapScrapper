@@ -11,7 +11,7 @@ subreddit = "battlemaps"
 file_extensions = ["jpg", "png"]
 starting_timestamp = 0
 minimum_submission_score = 100
-gridded_only = False
+gridded_only = True
 
 download_path = "Maps/"
 temporary_path = "Temp/"
@@ -22,7 +22,7 @@ image_similarity = 0
 minimum_tag_repetitions = 5
 base_tags = []
 stop_words = open("stop_words_english.txt", "r").read().split("\n")
-upload_ip = "http://192.168.0.40/uploadImage"
+upload_ip = "http://127.0.0.1:8000/maps/"
 
 config = {"base_url": base_url,
           "subreddit": subreddit,
@@ -89,8 +89,8 @@ class WebScrapper(object):
 
 
 dictionary_maker = DictionaryMaker(config)
-# scrapper = WebScrapper(dictionary_maker, config)
-# scrapper.start_scrapping()
+scrapper = WebScrapper(dictionary_maker, config)
+scrapper.start_scrapping()
 dictionary_maker.update_stop_words()
 map_tagger = MapTagger(config)
 map_tagger.assign_tags()

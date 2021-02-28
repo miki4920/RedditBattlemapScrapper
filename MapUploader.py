@@ -1,7 +1,7 @@
 import requests
 import os
-from requests_toolbelt.multipart.encoder import MultipartEncoder
-from UtilityFunctions import read_json, write_json, read_file
+from UtilityFunctions import read_json, write_json
+import json
 
 
 def correct_response(response):
@@ -14,10 +14,9 @@ class MapUploader(object):
     def __init__(self, config):
         self.config = config
 
-    def upload_file(self, file):
+    def upload_file(self, image, metadata):
         try:
-            response = requests.post(self.config["upload_ip"], data=file,
-                                     headers={'Content-Type': file.content_type})
+            response = requests.post(self.config["upload_ip"], data=metadata, files=image)
             return response
         except Exception as e:
             print(e)
@@ -26,16 +25,18 @@ class MapUploader(object):
         submissions = read_json(self.config["dictionary_path"])
         temporary_submissions = submissions.copy()
         for submission in temporary_submissions:
-            metadata = [('image',
-                        (f"{submission['name']}.{submission['extension']}", read_file(submission['path']),
-                        f"image/{submission['extension']}")),
-                        ("name", "nick"),
-                        ("squareWidth", str(submission["width"])),
-                        ("squareHeight", str(submission["height"]))] + [("tags", tag) for tag in submission["tags"]]
-            file = MultipartEncoder(
-                fields=metadata
-            )
-            response = self.upload_file(file)
+            image = {"picture": open(submission["path"], "rb")}
+            if len(submission["tags"]) > 1:
+                submission["tags"] = ",".join(submission["tags"])
+            metadata = {"name": submission["name"],
+                        "extension": submission["extension"],
+                        "uploader": "nick",
+                        "square_width": submission["width"],
+                        "square_height": submission["height"],
+                        "tags": submission["tags"]
+                        }
+
+            response = self.upload_file(image, metadata)
             if response.status_code == 200:
                 os.remove(submission["path"])
                 submissions.remove(submission)
@@ -49,5 +50,3 @@ class MapUploader(object):
             else:
                 print(response, response.content)
         write_json(self.config["dictionary_path"], submissions)
-
-
