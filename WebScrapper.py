@@ -100,8 +100,8 @@ class WebScrapper(object):
 
 
 dictionary_maker = DictionaryMaker(config)
-scrapper = WebScrapper(dictionary_maker, config)
-scrapper.start_scrapping()
+# scrapper = WebScrapper(dictionary_maker, config)
+# scrapper.start_scrapping()
 dictionary_maker.update_stop_words()
 map_tagger = MapTagger(config)
 map_tagger.assign_tags()
