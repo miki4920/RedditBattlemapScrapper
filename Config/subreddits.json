@@ -1,0 +1,34 @@
+{
+  "battlemaps": {
+    "score": 10,
+    "grid": true
+  },
+  "dndmaps": {
+    "score": 10,
+    "grid": true
+  },
+  "dungeondraft": {
+    "score": 10,
+    "grid": true
+  },
+  "fantasymaps": {
+    "score": 10,
+    "grid": true
+  },
+  "miskasmaps": {
+    "score": 10,
+    "grid": true
+  },
+  "Star_Wars_Maps": {
+    "score": 10,
+    "grid": true
+  },
+  "roll20": {
+    "score": 10,
+    "grid": true
+  },
+  "FoundryVTT": {
+    "score": 10,
+    "grid": true
+  }
+}

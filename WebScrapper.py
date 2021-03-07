@@ -7,11 +7,8 @@ from MapUploader import MapUploader
 
 
 base_url = "http://api.pushshift.io/reddit/search/submission/"
-subreddit = "battlemaps"
 file_extensions = ["jpg", "png"]
 starting_timestamp = 0
-minimum_submission_score = 10
-gridded_only = True
 
 download_path = "Maps/"
 temporary_path = "Temp/"
@@ -21,16 +18,15 @@ image_similarity = 0
 
 minimum_tag_repetitions = 5
 base_tags = []
-black_list_words = open("black_list_words.txt", "r").read().split("\n")
-stop_words = open("stop_words.txt", "r").read().split("\n")
+black_list_words = open("Config/black_list_words.txt", "r").read().split("\n")
+stop_words = open("Config/stop_words.txt", "r").read().split("\n")
+subreddits = read_json("Config/subreddits.json")
 upload_ip = "http://127.0.0.1:8000/maps/"
+upload_ip = "http://192.168.0.40/api/images"
 
 config = {"base_url": base_url,
-          "subreddit": subreddit,
           "file_extensions": file_extensions,
           "starting_timestamp": starting_timestamp,
-          "minimum_submission_score": minimum_submission_score,
-          "gridded_only": gridded_only,
           "download_path": download_path,
           "temporary_path": temporary_path,
           "dictionary_path": dictionary_path,
@@ -39,13 +35,15 @@ config = {"base_url": base_url,
           "minimum_tag_repetitions": minimum_tag_repetitions,
           "stop_words": stop_words,
           "black_list_words": black_list_words,
+          "subreddits": subreddits,
           "upload_ip": upload_ip}
 
 
 class WebScrapper(object):
     def __init__(self, dictionary_maker, config):
-        self.dictionary_maker = dictionary_maker
         self.config = config
+        self.dictionary_maker = dictionary_maker
+
         self.submission_list = []
 
     def is_in_blacklist(self, image_name):
@@ -60,14 +58,14 @@ class WebScrapper(object):
         size = re.search("((?<!\d)\d{1,3}(?!\d))x((?<!\d)\d{1,3}(?!\d))", image_name)
         return size.group(0) if size else False
 
-    def check_submission(self, submission):
+    def check_submission(self, submission, grid):
         if submission["url"][-3:] not in self.config["file_extensions"]:
             return False
         if not re.search("i\..*\.it", submission["url"]):
             return False
         if not self.is_in_blacklist(submission["title"]):
             return False
-        if self.config['gridded_only'] and not self.get_size(submission["title"]):
+        if grid and not self.get_size(submission["title"]):
             return False
         return True
 
@@ -81,22 +79,23 @@ class WebScrapper(object):
         timestamp = self.config["starting_timestamp"]
         if os.path.exists(self.config["dictionary_path"]):
             self.submission_list = read_json(self.config["dictionary_path"])
-        while True:
-            url = self.config[
-                      "base_url"] + f"?subreddit={self.config['subreddit']}&score=>{self.config['minimum_submission_score']}&after={timestamp}&sort=asc&size=100"
-            json_api = list(read_json(request_file(url)).values())[0]
-            for submission in json_api:
-                if self.check_submission(submission):
-                    submission_dictionary = self.dictionary_maker.create_submission_dictionary(submission)
-                    file = request_file(submission_dictionary["url"])
-                    submission_dictionary["hash"] = hash_image(file)
-                    if self.check_hash(submission_dictionary["hash"]) and check_file_size(file):
-                        save_file(submission_dictionary["path"], file)
-                        self.submission_list.append(submission_dictionary)
-            write_json(self.config['dictionary_path'], self.submission_list)
-            if len(json_api) < 1:
-                break
-            timestamp = int(json_api[-1]["created_utc"])
+        for subreddit in config["subreddits"]:
+            while True:
+                url = self.config[
+                          "base_url"] + f"?subreddit={subreddit}&score=>{subreddits[subreddit]['score']}&after={timestamp}&sort=asc&size=100"
+                json_api = list(read_json(request_file(url)).values())[0]
+                for submission in json_api:
+                    if self.check_submission(submission, subreddits[subreddit]["grid"]):
+                        submission_dictionary = self.dictionary_maker.create_submission_dictionary(submission)
+                        file = request_file(submission_dictionary["url"])
+                        submission_dictionary["hash"] = hash_image(file)
+                        if self.check_hash(submission_dictionary["hash"]) and check_file_size(file):
+                            save_file(submission_dictionary["path"], file)
+                            self.submission_list.append(submission_dictionary)
+                write_json(self.config['dictionary_path'], self.submission_list)
+                if len(json_api) < 1:
+                    break
+                timestamp = int(json_api[-1]["created_utc"])
 
 
 dictionary_maker = DictionaryMaker(config)

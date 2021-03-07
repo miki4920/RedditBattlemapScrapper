@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c38b177e-a97b-4b8c-9b98-fee2489c06ba" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Config/subreddits.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MapUploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/MapUploader.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebScrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebScrapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/black_list_words.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Config/black_list_words.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stop_words.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Config/stop_words.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +35,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\miki4\Documents\GitHub\RedditBattlemapScrapper\Config" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.WebScrapper">
     <configuration name="DatabaseHandler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -222,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614523492429</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added error handling for bad request&#10;TODO: Add a way to iterate over multiple subreddits">
+      <created>1615040160668</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1615040160668</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -238,7 +253,8 @@
     <MESSAGE value="Moved stop words to a separate case, started handling upload codes&#10;TODO: Figure out names" />
     <MESSAGE value="Refactored the code to make it more efficient&#10;TODO: Add a word blacklist so that map is rejected when it contains a black listed word" />
     <MESSAGE value="Added a word blacklist&#10;TODO: Add all error handling for bad requests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a word blacklist&#10;TODO: Add all error handling for bad requests" />
+    <MESSAGE value="Added error handling for bad request&#10;TODO: Add a way to iterate over multiple subreddits" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added error handling for bad request&#10;TODO: Add a way to iterate over multiple subreddits" />
   </component>
   <component name="WindowStateProjectService">
     <state x="505" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611504782418">
@@ -253,26 +269,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1612107842465" />
-    <state x="287" y="0" key="CommitChangelistDialog2" timestamp="1614523491629">
+    <state x="287" y="0" key="CommitChangelistDialog2" timestamp="1615040160123">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="287" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1614523491629" />
-    <state width="1515" height="112" key="GridCell.Tab.0.bottom" timestamp="1615039252919">
+    <state x="287" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1615040160123" />
+    <state width="1515" height="192" key="GridCell.Tab.0.bottom" timestamp="1615139751217">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="112" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1615039252919" />
-    <state width="1515" height="112" key="GridCell.Tab.0.center" timestamp="1615039252919">
+    <state width="1515" height="192" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1615139751217" />
+    <state width="1515" height="192" key="GridCell.Tab.0.center" timestamp="1615139751217">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="112" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1615039252919" />
-    <state width="1515" height="112" key="GridCell.Tab.0.left" timestamp="1615039252919">
+    <state width="1515" height="192" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1615139751217" />
+    <state width="1515" height="192" key="GridCell.Tab.0.left" timestamp="1615139751216">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="112" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1615039252919" />
-    <state width="1515" height="112" key="GridCell.Tab.0.right" timestamp="1615039252919">
+    <state width="1515" height="192" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1615139751216" />
+    <state width="1515" height="192" key="GridCell.Tab.0.right" timestamp="1615139751217">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="112" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1615039252919" />
+    <state width="1515" height="192" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1615139751217" />
     <state width="1515" height="185" key="GridCell.Tab.1.bottom" timestamp="1613588395756">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -293,9 +309,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1612035160999" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1614521983638">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1615133721669">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1614521983638" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1615133721669" />
   </component>
 </project>
