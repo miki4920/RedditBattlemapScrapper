@@ -1,34 +1,34 @@
 {
   "battlemaps": {
-    "score": 10,
-    "grid": true
+    "score": 100,
+    "grid": false
   },
   "dndmaps": {
-    "score": 10,
-    "grid": true
+    "score": 100,
+    "grid": false
   },
   "dungeondraft": {
     "score": 10,
     "grid": true
   },
   "fantasymaps": {
-    "score": 10,
-    "grid": true
+    "score": 100,
+    "grid": false
   },
   "miskasmaps": {
-    "score": 10,
-    "grid": true
+    "score": 100,
+    "grid": false
   },
   "Star_Wars_Maps": {
     "score": 10,
-    "grid": true
+    "grid": false
   },
   "roll20": {
-    "score": 10,
-    "grid": true
+    "score": 50,
+    "grid": false
   },
   "FoundryVTT": {
-    "score": 10,
-    "grid": true
+    "score": 50,
+    "grid": false
   }
 }
