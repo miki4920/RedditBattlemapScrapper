@@ -23,7 +23,6 @@ class DictionaryMaker(object):
 
     def simplify_name(self, name):
         name = name.lower()
-
         name = re.sub(r'[^a-zA-Z_]', '_', name)
         name = self.filter_words(name)
         name = re.sub("(_)+", "_", name)

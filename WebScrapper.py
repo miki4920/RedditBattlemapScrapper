@@ -22,7 +22,7 @@ base_tags = []
 black_list_words = open("Config/black_list_words.txt", "r").read().split("\n")
 stop_words = open("Config/stop_words.txt", "r").read().split("\n")
 subreddits = read_json("Config/subreddits.json")
-upload_ip = "http://192.168.0.40/api/images"
+upload_ip = "http://127.0.0.1:8000/maps/"
 minimum_file_size = 5000
 maximum_file_size = 20485760
 
@@ -48,8 +48,9 @@ class WebScrapper(object):
         self.config = config
         self.dictionary_maker = DictionaryMaker(config)
         self.submission_checker = SubmissionChecker(config)
-
         self.submission_list = []
+        if os.path.exists(self.config["dictionary_path"]):
+            self.submission_list = read_json(self.config["dictionary_path"])
 
     def get_url(self, subreddit, timestamp):
         return self.config["base_url"] + f"?subreddit={subreddit}" \
@@ -58,8 +59,7 @@ class WebScrapper(object):
 
     def start_scrapping(self):
         timestamp = self.config["starting_timestamp"]
-        if os.path.exists(self.config["dictionary_path"]):
-            self.submission_list = read_json(self.config["dictionary_path"])
+
         for subreddit in config["subreddits"]:
             while True:
                 url = self.get_url(subreddit, timestamp)
@@ -78,9 +78,9 @@ class WebScrapper(object):
                 write_json(self.config['dictionary_path'], self.submission_list)
                 timestamp = int(json_data[-1]["created_utc"])
 
-
-scrapper = WebScrapper(config)
-scrapper.start_scrapping()
+#
+# scrapper = WebScrapper(config)
+# scrapper.start_scrapping()
 map_tagger = MapTagger(config)
 map_tagger.assign_tags()
 map_uploader = MapUploader(config)

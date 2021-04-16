@@ -26,27 +26,9 @@ class MapUploader(object):
                     "tags": submission["tags"]
                     }
         try:
-            response = requests.post(self.config["upload_ip"], data=metadata, files=image)
-            return response
-        except Exception as e:
-            print(e)
-
-    def upload_file_java(self, submission):
-        fields = [
-                ('image', (submission["name"] + "." + submission["extension"], open(submission["path"], 'rb'), 'image/' + submission["extension"])),
-                ('name', 'nick'),
-            ]
-        if submission["width"]:
-            fields.extend([('squareWidth', str(submission["width"])),
-                ('squareHeight', str(submission["height"]))])
-        fields.extend([("tags", tag) for tag in submission["tags"]])
-        multipart_data = MultipartEncoder(
-            fields=fields
-        )
-        try:
-            response = requests.post(self.config["upload_ip"], data=multipart_data,
-                  headers={'Content-Type': multipart_data.content_type})
-            return response
+            request = requests.post(self.config["upload_ip"], data=metadata, files=image)
+            print(request.content)
+            return request
         except Exception as e:
             print(e)
 
