@@ -22,7 +22,7 @@ base_tags = []
 black_list_words = open("Config/black_list_words.txt", "r").read().split("\n")
 stop_words = open("Config/stop_words.txt", "r").read().split("\n")
 subreddits = read_json("Config/subreddits.json")
-upload_ip = "http://127.0.0.1:8000/maps/"
+upload_ip = "http://192.168.0.11:8000/maps/"
 minimum_file_size = 5000
 maximum_file_size = 20485760
 
@@ -59,28 +59,30 @@ class WebScrapper(object):
 
     def start_scrapping(self):
         timestamp = self.config["starting_timestamp"]
-
         for subreddit in config["subreddits"]:
             while True:
                 url = self.get_url(subreddit, timestamp)
-                json_data = request_file(url).json()["data"]
-                if len(json_data) < 1:
-                    break
-                for submission in json_data:
-                    if self.submission_checker.check_title(submission, subreddits[subreddit]["grid"]):
-                        submission_dictionary = self.dictionary_maker.create_submission_dictionary(submission)
-                        submission = request_file(submission_dictionary["url"]).content
-                        submission_dictionary["hash"] = hash_image(submission)
-                        if self.submission_checker.check_file_size(submission):
-                            if self.submission_checker.check_hash(submission_dictionary["hash"], self.submission_list):
-                                save_file(submission_dictionary["path"], submission)
-                                self.submission_list.append(submission_dictionary)
-                write_json(self.config['dictionary_path'], self.submission_list)
-                timestamp = int(json_data[-1]["created_utc"])
+                try:
+                    json_data = request_file(url).json()["data"]
+                    if len(json_data) < 1:
+                        break
+                    for submission in json_data:
+                        if self.submission_checker.check_title(submission, subreddits[subreddit]["grid"]):
+                            submission_dictionary = self.dictionary_maker.create_submission_dictionary(submission)
+                            submission = request_file(submission_dictionary["url"]).content
+                            submission_dictionary["hash"] = hash_image(submission)
+                            if self.submission_checker.check_file_size(submission):
+                                if self.submission_checker.check_hash(submission_dictionary["hash"], self.submission_list):
+                                    save_file(submission_dictionary["path"], submission)
+                                    self.submission_list.append(submission_dictionary)
+                    write_json(self.config['dictionary_path'], self.submission_list)
+                    timestamp = int(json_data[-1]["created_utc"])
+                except json.decoder.JSONDecodeError:
+                    timestamp += 100
 
-#
-# scrapper = WebScrapper(config)
-# scrapper.start_scrapping()
+
+scrapper = WebScrapper(config)
+scrapper.start_scrapping()
 map_tagger = MapTagger(config)
 map_tagger.assign_tags()
 map_uploader = MapUploader(config)
