@@ -38,9 +38,5 @@ class WebScrapper(object):
             write_json(Config.dictionary_path, self.submission_list)
 
 
-scrapper = WebScrapper()
-scrapper.scrapper()
-map_tagger = MapTagger()
-map_tagger.assign_tags()
 map_uploader = MapUploader()
 map_uploader.upload_dictionary()
