@@ -34,9 +34,13 @@ class WebScrapper(object):
                         self.get_submission(submission, subreddit)
                     timestamp = int(json_data[-1]["created_utc"])
                 except json.decoder.JSONDecodeError:
-                    timestamp += 100
+                    timestamp += 1000
             write_json(Config.dictionary_path, self.submission_list)
 
 
+webscrapper = WebScrapper()
+webscrapper.scrapper()
+map_tagger = MapTagger()
+map_tagger.assign_tags()
 map_uploader = MapUploader()
 map_uploader.upload_dictionary()

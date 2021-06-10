@@ -28,4 +28,3 @@ class MapUploader(object):
             response = self.upload_file(submission)
             if isinstance(response, requests.Response) and response.status_code == 400:
                 print(response.content)
-        write_json(Config.dictionary_path, submissions)

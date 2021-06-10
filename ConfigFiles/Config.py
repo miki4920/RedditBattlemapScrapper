@@ -1,3 +1,5 @@
+from PIL import Image
+
 from UtilityFunctions.FileFunctions import read_json
 
 
@@ -17,9 +19,10 @@ class ConfigList(object):
     black_list_words = open("ConfigFiles/black_list_words.txt", "r").read().split("\n")
     stop_words = open("ConfigFiles/stop_words.txt", "r").read().split("\n")
     subreddits = read_json("ConfigFiles/subreddits.json")
-    upload_ip = "http://192.168.0.11/maps/"
+    upload_ip = "http://192.168.0.36/maps/"
     minimum_file_size = 5000
     maximum_file_size = 20485760
+    Image.MAX_IMAGE_PIXELS = None
 
 
 Config = ConfigList()
