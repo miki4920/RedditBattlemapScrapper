@@ -1,6 +1,5 @@
 import re
 
-from UtilityFunctions.HashFunctions import hash_distance
 from ConfigFiles.Config import Config
 
 
@@ -39,9 +38,3 @@ def check_title(submission, gridded):
 def check_file_size(submission):
     return Config.minimum_file_size < len(submission) < Config.maximum_file_size
 
-
-def check_hash(submission, submission_list):
-    for existing_submission in submission_list:
-        if hash_distance(submission, existing_submission["hash"]) <= Config.image_similarity:
-            return False
-    return True

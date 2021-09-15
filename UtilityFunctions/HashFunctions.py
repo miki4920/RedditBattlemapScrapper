@@ -29,8 +29,3 @@ def hash_image(image):
                 hex(decimal_value)[2:].rjust(2, "0"))
             decimal_value = 0
     return hash_string
-
-
-def hash_distance(hash_a, hash_b):
-    difference = (int(hash_a, 16)) ^ (int(hash_b, 16))
-    return bin(difference).count("1")
