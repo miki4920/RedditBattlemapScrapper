@@ -1,16 +1,16 @@
 import requests
 import time
 
-from ConfigFiles.Config import Config
+from Config import CONFIG
 
 
-def get_api_url(subreddit, timestamp):
-    return Config.base_url + f"?subreddit={subreddit}" \
-                             f"&score=>{Config.subreddits[subreddit]['score']}" \
+def get_api_url(subreddit, score, timestamp):
+    return CONFIG.base_url + f"?subreddit={subreddit}" \
+                             f"&score=>{score}" \
                              f"&after={timestamp}&sort=asc&size=1000"
 
 
 def request_file(url, timeout=0):
-    request = requests.get(url, headers=Config.headers)
+    request = requests.get(url)
     time.sleep(timeout)
     return request
