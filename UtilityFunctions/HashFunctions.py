@@ -6,7 +6,7 @@ def calculate_image_difference(image):
     resize_width = 9
     resize_height = 8
     image = Image.open(BytesIO(image)).convert("LA")
-    image = image.resize((resize_width, resize_height))
+    image = image.resize((resize_width, resize_height), Image.NEAREST)
     pixels = list(image.getdata())
     difference = []
     for row in range(resize_height):
