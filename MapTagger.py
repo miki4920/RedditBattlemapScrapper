@@ -1,10 +1,10 @@
 from UtilityFunctions.FileFunctions import *
-from ConfigFiles.Config import Config
+from Config import CONFIG
 
 
 class MapTagger(object):
     def __init__(self):
-        self.dictionary = read_json(Config.dictionary_path)
+        self.dictionary = read_json(CONFIG.dictionary_path)
         self.tags = []
 
     def get_name_tags(self):
@@ -21,7 +21,7 @@ class MapTagger(object):
                     else:
                         name_tags[tag] = 1
         name_tags = dict(sorted(name_tags.items(), key=lambda item: item[1])[::-1])
-        name_tags = {k: v for k, v in name_tags.items() if v >= Config.minimum_tag_repetitions}
+        name_tags = {k: v for k, v in name_tags.items() if v >= CONFIG.minimum_tag_repetitions}
         self.tags.extend(list(name_tags.keys()))
 
     def assign_tags(self):
@@ -32,7 +32,7 @@ class MapTagger(object):
                 if tag in self.tags and tag not in submission_tags:
                     submission_tags.append(tag)
             submission["tags"] = submission_tags
-        write_json(Config.dictionary_path, self.dictionary)
+        write_json(CONFIG.dictionary_path, self.dictionary)
 
 
 

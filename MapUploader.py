@@ -1,6 +1,6 @@
 import requests
-from UtilityFunctions.FileFunctions import read_json, write_json
-from ConfigFiles.Config import Config
+from UtilityFunctions.FileFunctions import read_json
+from Config import CONFIG
 
 
 class MapUploader(object):
@@ -16,13 +16,13 @@ class MapUploader(object):
                     "tags": submission["tags"]
                     }
         try:
-            request = requests.post(Config.upload_ip, data=metadata, files=image)
+            request = requests.post(CONFIG.upload_ip, data=metadata, files=image)
             return request
         except Exception as e:
             print(e)
 
     def upload_dictionary(self):
-        submissions = read_json(Config.dictionary_path)
+        submissions = read_json(CONFIG.dictionary_path)
         temporary_submissions = submissions.copy()
         for submission in temporary_submissions:
             response = self.upload_file(submission)
