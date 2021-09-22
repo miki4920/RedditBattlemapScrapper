@@ -126,4 +126,4 @@ dmypy.json
 /ClientSecrets.py
 
 # Pycharm Files
-.idea
+/.idea/
