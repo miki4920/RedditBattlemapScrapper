@@ -14,13 +14,15 @@ class DictionaryMaker:
         url = submission["url"]
         extension = url[-3:]
         name, path = self.get_path(name, extension)
-        width, height = self.get_size(submission["title"])
+        square_width, square_height = self.get_square_size(submission["title"])
         dictionary = {"name": name,
                       "url": url,
                       "extension": extension,
                       "path": path,
-                      "width": width,
-                      "height": height,
+                      "width": None,
+                      "height": None,
+                      "square_width": square_width,
+                      "square_height": square_height,
                       "hash": None,
                       "tags": (),
                       "timestamp": timestamp,
@@ -66,7 +68,7 @@ class DictionaryMaker:
         return unique_name, path
 
     @staticmethod
-    def get_size(image_name):
+    def get_square_size(image_name):
         size = re.search("((?<!\d)\d{1,3}(?!\d))x((?<!\d)\d{1,3}(?!\d))", image_name)
         if not size:
             return None, None

@@ -1,7 +1,11 @@
 import re
 
+from io import BytesIO
+from PIL import Image
+
 from Config import CONFIG
 from MapTagger import MapTagger
+from MapUploader import MapUploader
 from UtilityFunctions.DictionaryFunctions import DictionaryMaker
 from UtilityFunctions.HashFunctions import hash_image
 from UtilityFunctions.NetworkFunctions import get_api_url, request_file
@@ -45,6 +49,7 @@ class WebScrapper(object):
         if self.check_title(submission):
             submission_dictionary = self.dictionary_maker(submission, submission["created_utc"])
             submission = request_file(submission_dictionary["url"], timeout=1).content
+            submission_dictionary["width"], submission_dictionary["height"] = Image.open(BytesIO(submission)).size
             submission_dictionary["hash"] = hash_image(submission)
             if self.check_file_size(submission) and submission_dictionary["hash"] not in self.hash_set:
                 write_file(submission_dictionary["path"], submission)
@@ -68,9 +73,10 @@ class WebScrapper(object):
                 write_json(CONFIG.dictionary_path, self.submission_list)
 
 
-webscrapper = WebScrapper()
-webscrapper.scrapper()
-# map_tagger = MapTagger()
-# map_tagger.assign_tags()
-# map_uploader = MapUploader()
-# map_uploader.upload_dictionary()
+if __name__ == "__main__":
+    # webscrapper = WebScrapper()
+    # webscrapper.scrapper()
+    map_tagger = MapTagger()
+    map_tagger.assign_tags()
+    map_uploader = MapUploader()
+    map_uploader.upload_dictionary()
