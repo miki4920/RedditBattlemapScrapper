@@ -4,19 +4,12 @@ from Config import CONFIG
 
 
 class MapUploader(object):
-    def upload_file(self, submission):
-        image = {"picture": open(submission["path"], "rb")}
-        if len(submission["tags"]) > 1:
-            submission["tags"] = ",".join(submission["tags"])
-        metadata = {"name": submission["name"].capitalize(),
-                    "extension": submission["extension"],
-                    "uploader": "nick",
-                    "square_width": submission["width"],
-                    "square_height": submission["height"],
-                    "tags": submission["tags"]
-                    }
+    @staticmethod
+    def upload_file(submission):
+        submission["tags"] = ",".join(submission["tags"]) if submission["tags"] else None
+        image = {"image": open(submission["path"], "rb")}
         try:
-            request = requests.post(CONFIG.upload_ip, data=metadata, files=image)
+            request = requests.post(CONFIG.upload_ip, data=submission, files=image)
             return request
         except Exception as e:
             print(e)
