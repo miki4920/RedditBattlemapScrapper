@@ -11,8 +11,8 @@ class MapUploader(object):
         try:
             request = requests.post(CONFIG.upload_ip, data=submission, files=image)
             return request
-        except requests.exceptions.ConnectionError:
-            print("Server Not Online")
+        except requests.exceptions.ConnectionError as e:
+            print(e)
 
     def upload_dictionary(self):
         submissions = read_json(CONFIG.dictionary_path)

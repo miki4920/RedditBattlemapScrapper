@@ -11,10 +11,10 @@ class DictionaryMaker:
 
     def __call__(self, submission, timestamp):
         name = self.simplify_name(submission["title"])
+        square_width, square_height = self.get_square_size(submission["title"])
         url = submission["url"]
         extension = url[-3:]
         name, path = self.get_path(name, extension)
-        square_width, square_height = self.get_square_size(submission["title"])
         dictionary = {"name": name,
                       "url": url,
                       "extension": extension,
@@ -37,14 +37,16 @@ class DictionaryMaker:
         return True
 
     def filter_words(self, name):
-        name = re.split("[ _]", name)
+        name = name.split("_")
         word_list = filter(self.filter_function, name)
         return "_".join(word_list)
 
     def simplify_name(self, name):
         name = name.lower()
-        name = re.sub(r"[^a-zA-Z_ ]", "", name)
+        name = re.sub(r"[^a-zA-Z_]", "_", name)
+        name = re.sub(r"_+", "_", name)
         name = self.filter_words(name)
+        name = re.sub(r"_+", "_", name)
         name = re.sub("_$|^_", "", name)
         while len(name) > CONFIG.name_length:
             name = "_".join(name.split("_")[:-1])

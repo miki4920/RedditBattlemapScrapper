@@ -74,9 +74,9 @@ class WebScrapper(object):
 
 
 if __name__ == "__main__":
-    # webscrapper = WebScrapper()
-    # webscrapper.scrapper()
+    webscrapper = WebScrapper()
+    webscrapper.scrapper()
     map_tagger = MapTagger()
     map_tagger.assign_tags()
-    map_uploader = MapUploader()
-    map_uploader.upload_dictionary()
+    # map_uploader = MapUploader()
+    # map_uploader.upload_dictionary()
