@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ed374141-6729-4753-b73e-646321602e46" name="Default Changelist" comment="Removed dumping error content into console upon connection error">
+    <list default="true" id="ed374141-6729-4753-b73e-646321602e46" name="Default Changelist" comment="Changed handling for square size">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/MapUploader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UtilityFunctions/DictionaryFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/UtilityFunctions/DictionaryFunctions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/subreddits.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/subreddits.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UtilityFunctions/NetworkFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/UtilityFunctions/NetworkFunctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebScrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebScrapper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +25,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../BattlemapSearcher-Flask" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
     <configuration name="WebScrapper" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -68,7 +69,10 @@
       <workItem from="1632822756168" duration="584000" />
       <workItem from="1632824646869" duration="695000" />
       <workItem from="1632826492427" duration="528000" />
-      <workItem from="1633884456691" duration="322000" />
+      <workItem from="1633884456691" duration="3925000" />
+      <workItem from="1634142384702" duration="3331000" />
+      <workItem from="1634161749887" duration="49000" />
+      <workItem from="1634209969506" duration="1457000" />
     </task>
     <task id="LOCAL-00001" summary="Added an actual image width and height to the dictionary. Replaced width and height in squares with square_width and square_height">
       <created>1632417218596</created>
@@ -91,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632499939870</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Changed handling for square size">
+      <created>1633885090408</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1633885090409</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,11 +124,12 @@
     <MESSAGE value="Added an actual image width and height to the dictionary. Replaced width and height in squares with square_width and square_height" />
     <MESSAGE value="Removed a metadata dictionary, instead sending a whole submission dictionary." />
     <MESSAGE value="Removed dumping error content into console upon connection error" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed dumping error content into console upon connection error" />
+    <MESSAGE value="Changed handling for square size" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed handling for square size" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/RedditBattlemapScrapper$WebScrapper.coverage" NAME="WebScrapper Coverage Results" MODIFIED="1622987838640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MapUploader_py$WebScrapper.coverage" NAME="WebScrapper Coverage Results" MODIFIED="1632339693977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WebScrapper_py$WebScrapper.coverage" NAME="WebScrapper Coverage Results" MODIFIED="1633884773576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebScrapper_py$WebScrapper.coverage" NAME="WebScrapper Coverage Results" MODIFIED="1634210215667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

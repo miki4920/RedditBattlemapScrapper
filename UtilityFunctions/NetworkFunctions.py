@@ -4,10 +4,8 @@ import time
 from Config import CONFIG
 
 
-def get_api_url(subreddit, score, timestamp):
-    return CONFIG.base_url + f"?subreddit={subreddit}" \
-                             f"&score=>{score}" \
-                             f"&after={timestamp}&sort=asc&size=1000"
+def get_api_url(subreddit, timestamp):
+    return CONFIG.base_url + f"?subreddit={subreddit}" + f"&after={timestamp}&sort=asc&size=1000"
 
 
 def request_file(url, timeout=0):

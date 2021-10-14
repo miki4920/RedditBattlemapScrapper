@@ -58,9 +58,9 @@ class WebScrapper(object):
 
     def scrapper(self):
         for subreddit in self.subreddits:
-            timestamp = self.submission_list[-1]["timestamp"] if len(self.submission_list) > 0 else 0
+            timestamp = 0
             while True:
-                url = get_api_url(subreddit, self.subreddits[subreddit], timestamp)
+                url = get_api_url(subreddit, timestamp)
                 try:
                     json_data = request_file(url).json()["data"]
                     if len(json_data) < 1:
@@ -74,9 +74,9 @@ class WebScrapper(object):
 
 
 if __name__ == "__main__":
-    webscrapper = WebScrapper()
-    webscrapper.scrapper()
+    # webscrapper = WebScrapper()
+    # webscrapper.scrapper()
     map_tagger = MapTagger()
     map_tagger.assign_tags()
-    # map_uploader = MapUploader()
-    # map_uploader.upload_dictionary()
+    map_uploader = MapUploader()
+    map_uploader.upload_dictionary()
