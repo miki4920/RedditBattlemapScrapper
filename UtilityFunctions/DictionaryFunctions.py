@@ -71,6 +71,7 @@ class DictionaryMaker:
 
     @staticmethod
     def get_square_size(image_name):
+        image_name = re.sub("[^a-zA-Z0-9]", "", image_name)
         size = re.search("((?<!\d)\d{1,3}(?!\d))x((?<!\d)\d{1,3}(?!\d))", image_name)
         if not size:
             return None, None

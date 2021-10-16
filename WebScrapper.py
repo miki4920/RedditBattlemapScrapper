@@ -39,6 +39,8 @@ class WebScrapper(object):
             return False
         if self.blacklist(submission):
             return False
+        if DictionaryMaker.get_square_size(submission["title"])[0] is None and CONFIG.square_size:
+            return False
         return True
 
     @staticmethod
@@ -74,9 +76,9 @@ class WebScrapper(object):
 
 
 if __name__ == "__main__":
-    # webscrapper = WebScrapper()
-    # webscrapper.scrapper()
-    map_tagger = MapTagger()
-    map_tagger.assign_tags()
-    map_uploader = MapUploader()
-    map_uploader.upload_dictionary()
+    webscrapper = WebScrapper()
+    webscrapper.scrapper()
+    # map_tagger = MapTagger()
+    # map_tagger.assign_tags()
+    # map_uploader = MapUploader()
+    # map_uploader.upload_dictionary()

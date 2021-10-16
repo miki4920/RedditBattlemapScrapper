@@ -13,6 +13,7 @@ class CONFIG(object):
 
     minimum_tag_repetitions = 5
     name_length = 50
+    square_size = True
     black_list_words_path = "Data/black_list_words.json"
     stop_words_path = "Data/stop_words.json"
     subreddits_path = "Data/subreddits.json"
